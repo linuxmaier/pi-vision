@@ -73,8 +73,15 @@ When committing code that addresses a runtime bug, mention the bug at the top of
 
 ### Python Environment
 
-- Use a dedicated conda or virtualenv for this project. Never install into system Python.
-- Core libraries to be aware of: `opencv-python`, `numpy`, `picamera2` (only for Pi camera module, not USB).
+- Use a dedicated virtual environment (conda or venv) for this project. Never install into system Python.
+- Core libraries: `opencv-python`, `numpy`, `pytest`. `picamera2` is only relevant for the Pi camera module, not USB cameras.
+- Machine-specific environment details (env name, interpreter path) are recorded in `local_management/environment.md` — check there first.
+
+### Laptop Development
+
+- The code is fully portable. A Linux laptop with a USB or built-in webcam is a valid development environment — no Pi required.
+- OpenCV's `VideoCapture` works identically on both platforms. The webcam on the development laptop appears at `/dev/video0` and returns 640×480 BGR frames.
+- The only things that differ on the Pi: slower CPU, possibly a different `/dev/videoN` index, and headless display considerations if running over SSH.
 
 ### Useful Diagnostic Commands
 
@@ -90,9 +97,9 @@ vcgencmd measure_temp        # Pi CPU temperature
 
 ## Project Milestones
 
-1. **[Current]** Project setup and AGENTS.md scaffolding
-2. Verify camera is accessible from Python on the Pi
-3. Capture and display a live video frame
+1. **[Done]** Project setup and AGENTS.md scaffolding
+2. **[Done]** Implement `capture.py` — verified working on laptop webcam (640×480 BGR frames)
+3. Capture and display a live video frame (`display.py`)
 4. Detect motion in the frame (frame differencing)
 5. Detect entry/exit direction across a defined boundary line
 6. (Future) Ant tracking — detect and follow small moving objects

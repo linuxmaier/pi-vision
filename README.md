@@ -38,11 +38,17 @@ v4l2-ctl --list-devices
 
 ### 4. Set up Python environment
 
+Create a dedicated virtual environment (conda or venv) and install dependencies:
+
 ```
-python3 -m venv .venv
-source .venv/bin/activate
 pip install -r requirements.txt
 ```
+
+Always use the environment's Python interpreter explicitly to avoid accidentally targeting system Python.
+
+### Developing without the Pi
+
+The code runs identically on a Linux laptop with a USB or built-in webcam. Use the laptop for development and testing, then run the same code on the Pi when ready. The only difference is the camera device index (try `0` first, then `1` if it fails).
 
 ## Project Structure
 
