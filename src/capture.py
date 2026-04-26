@@ -24,9 +24,11 @@ def open_camera(index: int = 0) -> cv2.VideoCapture:
     Try index=0 first. If that fails, try index=1 (some Pi setups expose
     a dummy device at 0 and the real camera at 1).
     """
-    # TODO: open the camera with cv2.VideoCapture, check .isOpened(),
-    # raise a RuntimeError with a helpful message if it fails.
-    raise NotImplementedError
+    camera = cv2.VideoCapture(index)
+    if not camera.isOpened():
+        raise RuntimeError(f"camera at index {index} not found")
+    else:
+        return camera
 
 
 def read_frame(cap: cv2.VideoCapture):
@@ -35,11 +37,13 @@ def read_frame(cap: cv2.VideoCapture):
     cv2.VideoCapture.read() returns a tuple: (success_bool, frame).
     If success is False, the camera disconnected or the stream ended.
     """
-    # TODO: call cap.read(), check the success flag, return the frame.
-    raise NotImplementedError
+    success, frame = cap.read()
+    if success is not True:
+        raise RuntimeError("camera read failed")
+    else:
+        return frame
 
 
 def release_camera(cap: cv2.VideoCapture) -> None:
     """Release the camera device so other programs can use it."""
-    # TODO: call cap.release().
-    raise NotImplementedError
+    cap.release()
